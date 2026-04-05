@@ -24,4 +24,7 @@ def create_app():
      from .routes.payment import payment_bp
      app.register_blueprint(payment_bp)
 
+     from .routes.analytics import analytics_bp
+     app.register_blueprint(analytics_bp)
+
      return app
