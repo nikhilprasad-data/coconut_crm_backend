@@ -3,7 +3,7 @@ from src.models.seller import Seller
 from src.models.user import User
 from src.models.location import Location
 from src.db import db
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from werkzeug.security import generate_password_hash
 
 seller_bp = Blueprint('seller', __name__, url_prefix='/api/seller')
@@ -12,6 +12,20 @@ seller_bp = Blueprint('seller', __name__, url_prefix='/api/seller')
 @jwt_required()
 def add_seller():
      try:
+          current_identity    = int(get_jwt_identity())
+          current_user        = User.query.get(current_identity) 
+
+          if not current_user :
+               return jsonify({
+                              "status"  : "error",
+                              "message" : "User not found"
+               }), 404
+          
+          if current_user.role == 'Seller':
+               return jsonify({
+                              "status"  : "error",
+                              "message" : "Access Denied. As seller you can't delete any seller"
+               }), 403
 
           data                =    request.get_json()
 
@@ -81,6 +95,21 @@ def add_seller():
 def get_sellers():
      try:
 
+          current_identity    = int(get_jwt_identity())
+          current_user        = User.query.get(current_identity) 
+
+          if not current_user :
+               return jsonify({
+                              "status"  : "error",
+                              "message" : "User not found"
+               }), 404
+          
+          if current_user.role == 'Seller':
+               return jsonify({
+                              "status"  : "error",
+                              "message" : "Access Denied. As seller you can't delete any seller"
+               }), 403
+          
           all_seller = Seller.query.filter_by(is_active= True).all()
 
           if not all_seller:
@@ -122,6 +151,21 @@ def get_sellers():
 @jwt_required()
 def delete_seller(seller_id):
      try:
+          current_identity    = int(get_jwt_identity())
+          current_user        = User.query.get(current_identity) 
+
+          if not current_user :
+               return jsonify({
+                              "status"  : "error",
+                              "message" : "User not found"
+               }), 404
+          
+          if current_user.role == 'Seller':
+               return jsonify({
+                              "status"  : "error",
+                              "message" : "Access Denied. As seller you can't delete any seller"
+               }), 403
+          
           seller = Seller.query.get(seller_id)
 
           if not seller:
