@@ -1,0 +1,4028 @@
+{
+  "info": {
+    "_postman_id": "ea4cfd29-d0b2-4c93-9226-adb9360a1d3e",
+    "name": "Coconut CRM API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53629100",
+    "_collection_link": "https://go.postman.co/collection/53629100-ea4cfd29-d0b2-4c93-9226-adb9360a1d3e?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Ping Auth",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/test",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "test"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success - API Health Check Passed",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/auth/test",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "test"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 02:37:39 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "74"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"auth route is working perfectly\",\n    \"status\": \"success\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Admin Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\" : \"[Admin-Username]\",\r\n    \"password\" : \"[Admin-Password]\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login/admin",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login",
+                "admin"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error - Validation Failed (Missing Field)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\" : \"[Original-Admin-Username]\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/login/admin",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login",
+                    "admin"
+                  ]
+                }
+              },
+              "status": "BAD REQUEST",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 04:36:12 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "102"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"password, is missing or empty. Please provide all the details\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Invalid Credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\" : \"[Wrong-Admin-Username]\",\r\n    \"password\" : \"[Wrong-Password]\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/login/admin",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login",
+                    "admin"
+                  ]
+                }
+              },
+              "status": "UNAUTHORIZED",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 03:00:05 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "69"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Invalid username or password\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Admin Logged In",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\" : \"[Original-Admin-Username]\",\r\n    \"password\" : \"[Original-Admin-Password]\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/login/admin",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login",
+                    "admin"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 02:46:20 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "436"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"access_token\": \"eyJhbGciOi[JWT generted by create_acess_token()]\",\n    \"message\": \"sucessfully logged in as admin [Original-Admin-Username]\",\n    \"status\": \"success\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Seller Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\" : \"[Seller-Username]\",\r\n    \"password\" : \"[Seller-Password]\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login/seller",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login",
+                "seller"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error - Validation Failed (Missing Field)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\" : \"[Original-Seller-Username]\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/login/seller",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login",
+                    "seller"
+                  ]
+                }
+              },
+              "status": "BAD REQUEST",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 04:41:10 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "102"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"password, is missing or empty. Please provide all the details\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Not Found (Invalid Seller Username)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\"  : \"Vivek_Roy_98290\",\r\n    \"password\"  : \"[Seller-Password]\"  \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/login/seller",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login",
+                    "seller"
+                  ]
+                }
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 04:22:09 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "69"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Vivek_Roy_98290, not exists.\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Invalid Credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\" : \"[Original-Seller-Username]\",\r\n    \"password\" : \"[Wrong-Password]\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/login/seller",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login",
+                    "seller"
+                  ]
+                }
+              },
+              "status": "UNAUTHORIZED",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 04:44:39 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "57"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Invalid password\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Seller Logged In",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\"  : \"[Original-Seller-Username]\",\r\n    \"password\"  : \"[Original-Seller-Password]\"  \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/login/seller",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login",
+                    "seller"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 04:16:12 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "434"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"access_token\": \"eyJhbGciO[JWT generted by create_acess_token()]\",\n    \"message\": \"sucessfully logged in as seller [Original-Seller-Username]\",\n    \"status\": \"success\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Admin Logout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ0NDY0NCwianRpIjoiOGIzZGU2NjMtNzA5MC00NDVlLTk3ZWUtYzViMjJmNjYzYzNlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NzU0NDQ2NDQsImNzcmYiOiI2NzYyN2I3MS1iOGNkLTRiMmYtOWIxZC05ODM2OWEzMGY2MjgiLCJleHAiOjE3NzU0NDU1NDR9.L0V4K8U45nlFQKs-hYGsuM6yrmyMlg4sF3FaTENjDzY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/logout/admin",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "logout",
+                "admin"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success - Admin Logged Out",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/auth/logout/admin",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "logout",
+                    "admin"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 03:05:00 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "71"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Admin successfully logged out\",\n    \"status\": \"success\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Seller Logout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ0OTc2MiwianRpIjoiN2U4NWZlN2QtZjY5Yi00MzJjLWI5MzMtMWIwZmRmZTEyMDU4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMiLCJuYmYiOjE3NzU0NDk3NjIsImNzcmYiOiI1ZDQ1OWVjZi1lOTkwLTRjMzctOGQwZS01ZjJmOWY3MmRlYzMiLCJleHAiOjE3NzU0NTA2NjJ9.vE5RJWWOLiUNYxuCpjyFC6qe7KYw1lhtiXDxVnL-Urs",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/logout/seller",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "logout",
+                "seller"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success - Seller Logged Out",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/auth/logout/seller",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "logout",
+                    "seller"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 04:30:03 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "72"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Seller successfully logged out\",\n    \"status\": \"success\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sellers",
+      "item": [
+        {
+          "name": "Add Seller",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ1MTMyNiwianRpIjoiMWZhNTRiMGEtMWFlMi00MzFmLTliODEtNWVhMmFkY2Y5YzNiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMiLCJuYmYiOjE3NzU0NTEzMjYsImNzcmYiOiI1OGJhMmU0NS01OWJhLTQxZmQtYWU4OC05NDY2OWY1ZDQzZTIiLCJleHAiOjE3NzU0NTIyMjZ9.b9102ZDH-C2fy-ej2n3TYYHNklMrsZzkf0V1f48ko48",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"city\"          : \"Durg\", \r\n    \"state\"         : \"Kolkata\", \r\n    \"seller_name\"   : \"Ayush Kumar\",\r\n    \"contact_number\": \"+91 [Contact-Number]\", \r\n    \"username\"      : \"[Seller-Username]\",\r\n    \"password\"      : \"[Seller-Password]\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/seller/add",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "seller",
+                "add"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error - Forbidden (Access Denied)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"city\"          : \"Howrah\", \r\n    \"state\"         : \"Kolkata\", \r\n    \"seller_name\"   : \"Ayush Kumar\",\r\n    \"contact_number\": \"+91 [Original-Contact-Number]\", \r\n    \"username\"      : \"[Seller-Username]\",\r\n    \"password\"      : \"[Seller-Password]\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/seller/add",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "seller",
+                    "add"
+                  ]
+                }
+              },
+              "status": "FORBIDDEN",
+              "code": 403,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 04:57:46 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "90"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"message\": \"Access Denied. As seller you can't add any seller\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Validation Failed (Missing Field)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"city\"          : \"Power House\", \r\n    \"state\"         : \"Delhi\", \r\n    \"seller_name\"   : \"Aniket Sha\",\r\n    \"username\"      : \"[Original-Seller-Username]\",\r\n    \"password\"      : \"[Original-Seller-Password]\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/seller/add",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "seller",
+                    "add"
+                  ]
+                }
+              },
+              "status": "BAD REQUEST",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 03:32:40 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "108"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"contact_number, is missing or empty. Please provide all the details\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Conflict (Duplicate Seller)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"city\"          : \"Bhilai\", \r\n    \"state\"         : \"Chhattisgarh\", \r\n    \"seller_name\"   : \"Vivek Roy\",\r\n    \"contact_number\": \"+91 [Original-Contact-Number]\", \r\n    \"username\"      : \"[Original-Seller-Username]\",\r\n    \"password\"      : \"[Original-Seller-Password]\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/seller/add",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "seller",
+                    "add"
+                  ]
+                }
+              },
+              "status": "CONFLICT",
+              "code": 409,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 03:40:43 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "62"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Seller already exists\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Seller Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"city\"          : \"Bhilai\", \r\n    \"state\"         : \"Chhattisgarh\", \r\n    \"seller_name\"   : \"Vivek Roy\",\r\n    \"contact_number\": \"+91 [Original-Contact-Number]\", \r\n    \"username\"      : \"[Seller-Username]\",\r\n    \"password\"      : \"[Seller-Password]\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/seller/add",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "seller",
+                    "add"
+                  ]
+                }
+              },
+              "status": "CREATED",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 03:22:13 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "72"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Vivek Roy, added successfully\",\n    \"status\": \"success\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "All Sellers",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ1MjIwMiwianRpIjoiNTVmN2NjNWMtMzdiYS00NDEwLWJmZTctNmM1OTQ1Nzg0ZDQyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NzU0NTIyMDIsImNzcmYiOiI3YWU5ZmYzNi1mYmNjLTQwOWMtOGRjZi03NzU4YzgzNzFkNDIiLCJleHAiOjE3NzU0NTMxMDJ9.VtC7O3ww3Q_QFy2J-ACBwKLoR6wMBjdefRM2RtIUxr0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/seller/data",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "seller",
+                "data"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error - Forbidden (Access Denied)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/seller/data",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "seller",
+                    "data"
+                  ]
+                }
+              },
+              "status": "FORBIDDEN",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 05:08:47 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "95"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Access Denied. As seller you can't see any seller data\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Fetched All  Sellers",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/seller/data",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "seller",
+                    "data"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 05:10:17 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1727"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"data\": [\n        {\n            \"city\": \"Visakhapatnam\",\n            \"contact_number\": \"+91 9827187753\",\n            \"seller_id\": 1,\n            \"seller_name\": \"Raja Kumar\",\n            \"state\": \"Andhra Pradesh\"\n        },\n        {\n            \"city\": \"Howrah\",\n            \"contact_number\": \"+91 7623445103\",\n            \"seller_id\": 2,\n            \"seller_name\": \"Kiran Aslam\",\n            \"state\": \"West Bengal\"\n        }\n    ],\n    \"status\": \"success\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Seller",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ1MzA3OCwianRpIjoiYzIzYjc3N2QtNjIyNS00ODdhLTg0ZGMtOTQwOTY1MTMyNWU5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NzU0NTMwNzgsImNzcmYiOiJmYmIwZTU0Ny03YjI0LTQxZjgtYmQ0My00NjI0ZTk1ZjBkNzEiLCJleHAiOjE3NzU0NTM5Nzh9.VwMQo_yfBfNklAFn4a_Wz004EwAOTcHlcDmegmcMhEU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/seller/delete/2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "seller",
+                "delete",
+                "2"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error - Forbidden (Access Denied)",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/seller/delete/2",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "seller",
+                    "delete",
+                    "2"
+                  ]
+                }
+              },
+              "status": "FORBIDDEN",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 05:23:01 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "93"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Access Denied. As seller you can't delete any seller\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Not Found (Invalid Seller Id)",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/seller/delete/20",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "seller",
+                    "delete",
+                    "20"
+                  ]
+                }
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 05:30:02 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "64"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Seller id 20, not found\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Seller Deleted",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/seller/delete/2",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "seller",
+                    "delete",
+                    "2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 05:30:24 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "76"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Seller id 2, deleted successfully\",\n    \"status\": \"success\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Purchases",
+      "item": [
+        {
+          "name": "All Purchases",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ1NDAyNCwianRpIjoiZjNkYzEyODUtZjM4NC00MGExLWJlNTQtOWVjYTEwMjYxYjIwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NzU0NTQwMjQsImNzcmYiOiIxM2M5MDM5Mi1kOTcwLTQ0NDYtODVmNy05ZDNhZDk0N2MxYjIiLCJleHAiOjE3NzU0NTQ5MjR9.MruhjGdRh62SR1drOm7GOhI4eyNup2G90OElANsSyTA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/purchase/data/3",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "purchase",
+                "data",
+                "3"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error - Forbidden (Access Denied)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/purchase/data/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "data",
+                    "1"
+                  ]
+                }
+              },
+              "status": "FORBIDDEN",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 05:38:06 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "94"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Access Denied. You can't see other seller's purchase.\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Not Found (Invalid Seller Id)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/purchase/data/15",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "data",
+                    "15"
+                  ]
+                }
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 05:41:09 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "65"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Seller id 15, not exists\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Fetched Purchases by Seller Id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/purchase/data/3",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "data",
+                    "3"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 05:41:54 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "22035"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"purchase_data\": [\n        {\n            \"purchase_date\": \"2026-04-02\",\n            \"purchase_id\": 1002,\n            \"rate_per_piece\": 43.4,\n            \"total_amount\": 14322,\n            \"total_bags\": 11,\n            \"waste_pieces\": 0\n        },\n        {\n            \"purchase_date\": \"2026-04-02\",\n            \"purchase_id\": 1003,\n            \"rate_per_piece\": 43.4,\n            \"total_amount\": 14322,\n            \"total_bags\": 11,\n            \"waste_pieces\": 0\n        },\n        {\n            \"purchase_date\": \"2026-04-02\",\n            \"purchase_id\": 1004,\n            \"rate_per_piece\": 43.4,\n            \"total_amount\": 13454,\n            \"total_bags\": 11,\n            \"waste_pieces\": 20\n        }\n    ],\n    \"seller_data\": {\n        \"seller_contact_number\": \"+91 7987201089\",\n        \"seller_id\": 3,\n        \"seller_name\": \"Shiv Thakur\"\n    },\n    \"status\": \"success\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Add Purchase",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ2MzI0NiwianRpIjoiZGIxNzgzNzctMDEzMS00OTk5LWJlOGEtMDc4MjAxY2Y5ZjRiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NzU0NjMyNDYsImNzcmYiOiJjMmQ3YzE2Ni1jMmE4LTRhOTQtOGU5Ny0xY2ZhYzg2ZDgzN2UiLCJleHAiOjE3NzU0NjQxNDZ9.IkMYHPOt1KdyHvgFlXDKcCx3KjqYryhnTNS4mh74r0I",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"seller_id\"     : 19, \r\n    \"purchase_date\" : \"2026-04-06\", \r\n    \"total_bags\"    : 20, \r\n    \"waste_pieces\"  : 12,\r\n    \"rate_per_piece\": 45.4\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/purchase/add",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "purchase",
+                "add"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error - Forbidden (Access Denied)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 1, \r\n    \"purchase_date\" : \"2026-04-06\", \r\n    \"total_bags\"    : 20, \r\n    \"waste_pieces\"  : 9, \r\n    \"rate_per_piece\": 45.3\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/add",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "add"
+                  ]
+                }
+              },
+              "status": "FORBIDDEN",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 05:49:13 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "91"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Access Denied. As a seller you can't add purchase.\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Validation Failed (Missing Field)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 1, \r\n    \"purchase_date\" : \"2026-04-06\", \r\n    \"total_bags\"    : 20, \r\n    \"rate_per_piece\": 45.3\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/add",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "add"
+                  ]
+                }
+              },
+              "status": "BAD REQUEST",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 05:52:52 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "105"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"waste_pieces is missing or empty. Please provide all the details\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Not Found (Invalid Seller Id)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 19, \r\n    \"purchase_date\" : \"2026-04-06\", \r\n    \"total_bags\"    : 20, \r\n    \"waste_pieces\"  : 12,\r\n    \"rate_per_piece\": 45.4\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/add",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "add"
+                  ]
+                }
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:15:00 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "57"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Seller not found\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Validation Failed (Invalid Data Type)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 1, \r\n    \"purchase_date\" : \"2026-04-06\", \r\n    \"total_bags\"    : 20, \r\n    \"waste_pieces\"  : 12,\r\n    \"rate_per_piece\": \"abv\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/add",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "add"
+                  ]
+                }
+              },
+              "status": "BAD REQUEST",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 05:54:54 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "97"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Please input required fields in correct data type format\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Purchase Added",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 1, \r\n    \"purchase_date\" : \"2026-04-06\", \r\n    \"total_bags\"    : 20, \r\n    \"waste_pieces\"  : 12,\r\n    \"rate_per_piece\": 45.4\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/add",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "add"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 05:56:56 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "85"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Successfully added purchase on seller id 1\",\n    \"status\": \"success\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Purchase",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ2NDUyMSwianRpIjoiYzZiOWUwZWItZmI1OC00NTBlLWI5N2ItNzQwNjdmYjYzMzMwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NzU0NjQ1MjEsImNzcmYiOiJjMTc1NmIzMC1iNTg3LTQ2ZmEtOTFiZi0wMjFlMzVmZTJkNWQiLCJleHAiOjE3NzU0NjU0MjF9.SB6UCqseEQ0kLlWV6xhAGBt33eeMCOXb-qfePltTJTE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"seller_id\"             : 9,\r\n    \"number_of_total_bags\"  : 56\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/purchase/update/28",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "purchase",
+                "update",
+                "28"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error : Forbidden (Access Denied)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\" : 3\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/update/76",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "update",
+                    "76"
+                  ]
+                }
+              },
+              "status": "FORBIDDEN",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 06:07:39 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "88"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Access Denied. Seller can't update any purchase\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Not Found (Invalid Purchase Id)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"total_bags\": 56\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/update/1800",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "update",
+                    "1800"
+                  ]
+                }
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 06:11:30 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "68"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Purchase id 1800, not found\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Validation Failed (Empty Update Payload)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"fake_field\": \"test\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/update/28",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "update",
+                    "28"
+                  ]
+                }
+              },
+              "status": "BAD REQUEST",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 06:21:51 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "76"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"No valid fields provided for update\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Validation Failed (Invalid Data Type)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"total_bags\"    : 56,\r\n    \"waste_pieces\"  : \"abd\",\r\n    \"rate_per_piece\": 56.3\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/update/200",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "update",
+                    "200"
+                  ]
+                }
+              },
+              "status": "BAD REQUEST",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 06:16:41 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "73"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Wrong data type for waste_pieces\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error : Not Found (Invalid Seller Id)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"total_bags\"    : 56,\r\n    \"seller_id\"     : 19,\r\n    \"waste_pieces\"  : \"abd\",\r\n    \"rate_per_piece\": 56.3\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/update/23",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "update",
+                    "23"
+                  ]
+                }
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 06:18:40 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "57"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Seller not found\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Updated Purchase Id",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"total_bags\"    : 56,\r\n    \"waste_pieces\"  : 20\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/update/789",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "update",
+                    "789"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 06:13:44 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "179"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"fields_updated\": [\n        {\n            \"total_bags\": 56\n        },\n        {\n            \"waste_pieces\": 20\n        }\n    ],\n    \"message\": \"Purchase id 789 updated successfully\",\n    \"status\": \"success\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Replace Purchase",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ1ODE5NSwianRpIjoiMzZkMDI2ZjYtMjc2Mi00NjVhLThmYWItNzM3MjAxOGYwZjVmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NzU0NTgxOTUsImNzcmYiOiI3YzAyNzA2Yy04NzU3LTRmZDctYmNkOS0zYWVmMmE2OTQxZGMiLCJleHAiOjE3NzU0NTkwOTV9.BNczF3DO7Io06thwFFgM0jlxR9snpGaLzxj6leejdP8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"seller_id\"     : 19,\r\n    \"purchase_date\" :\"2026-02-04\", \r\n    \"total_bags\"    : 18, \r\n    \"waste_pieces\"  : 19, \r\n    \"rate_per_piece\": 30.32\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/purchase/replace/83",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "purchase",
+                "replace",
+                "83"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error - Forbidden (Access Denied)",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 2,\r\n    \"purchase_date\" :\"2026-04-06\", \r\n    \"total_bags\"    : 29, \r\n    \"waste_pieces\"  :1, \r\n    \"rate_per_piece\": 67.32\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/replace/56",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "replace",
+                    "56"
+                  ]
+                }
+              },
+              "status": "FORBIDDEN",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 06:31:50 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "90"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Access Denied. Seller can't replace purchase data\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Not Found (Invalid Purchase Id )",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 4,\r\n    \"purchase_date\" :\"2026-03-04\", \r\n    \"total_bags\"    : 59, \r\n    \"waste_pieces\"  :45, \r\n    \"rate_per_piece\": 45.32\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/replace/1902",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "replace",
+                    "1902"
+                  ]
+                }
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 06:35:22 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "67"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Purchase id 1902 not found\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Validation Failed (Empty Update Payload)",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 4,\r\n    \"purchase_date\" :\"2026-03-04\", \r\n    \"total_bags\"    : 59, \r\n    \"waste_pieces\"  :45\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/replace/19",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "replace",
+                    "19"
+                  ]
+                }
+              },
+              "status": "BAD REQUEST",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 06:43:24 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "107"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"rate_per_piece is missing or empty. Please provide all the details\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Validation Failed (Invalid Data Type)",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 4,\r\n    \"purchase_date\" :\"2026-03-04\", \r\n    \"total_bags\"    : 59, \r\n    \"waste_pieces\"  :\"sc\", \r\n    \"rate_per_piece\": 45.32\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/replace/83",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "replace",
+                    "83"
+                  ]
+                }
+              },
+              "status": "BAD REQUEST",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 06:50:18 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "97"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Please input required fields in correct data type format\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Not Found (Invalid Seller Id)",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 19,\r\n    \"purchase_date\" :\"2026-02-04\", \r\n    \"total_bags\"    : 18, \r\n    \"waste_pieces\"  : 19, \r\n    \"rate_per_piece\": 30.32\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/replace/83",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "replace",
+                    "83"
+                  ]
+                }
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 06:53:00 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "57"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Seller not found\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Replaced Purchase Id",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\": 4,\r\n    \"purchase_date\" :\"2026-03-04\", \r\n    \"total_bags\" : 59, \r\n    \"waste_pieces\" :45, \r\n    \"rate_per_piece\": 45.32\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/purchase/replace/83",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "purchase",
+                    "replace",
+                    "83"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 06:45:57 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "308"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Purchase 83, replaced successfully\",\n    \"replaced_data\": [\n        {\n            \"seller_id\": 4\n        },\n        {\n            \"purchase_date\": \"2026-03-04\"\n        },\n        {\n            \"total_bags\": 59\n        },\n        {\n            \"waste_pieces\": \"45\"\n        },\n        {\n            \"rate_per_piece\": \"45.32\"\n        }\n    ],\n    \"status\": \"success\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "All Payments",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ2MTk3OSwianRpIjoiNTA4YTAzZDMtMzE2Zi00NDI0LThmYjMtNTgyNTY0NGI5MDlmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NzU0NjE5NzksImNzcmYiOiI1YWUwNTI4NS1jMGI2LTRhZWMtOTY2Yy0zMTcxZWE2NTA0NmUiLCJleHAiOjE3NzU0NjI4Nzl9.qEptXp9yaNoG-Oe6CyJHglm1Q1dGYT-pUPxQmyo0xLc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/payment/data/6",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "payment",
+                "data",
+                "6"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error - Forbidden (Access Denied)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/payment/data/3",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "data",
+                    "3"
+                  ]
+                }
+              },
+              "status": "FORBIDDEN",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 07:52:03 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "93"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Access Denied. You can't see other seller's payments\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Not Found (Invalid Seller Id)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/payment/data/16",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "data",
+                    "16"
+                  ]
+                }
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 07:54:13 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "65"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Seller id 16, not exists\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Fetched Payments By Seller Id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/payment/data/6",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "data",
+                    "6"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 07:55:08 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "14270"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"payment\": [\n        {\n            \"amount_paid\": 27341.25,\n            \"payment_date\": \"2026-01-18\",\n            \"payment_id\": 8,\n            \"payment_method\": \"Cash\"\n        },\n        {\n            \"amount_paid\": 31985.97,\n            \"payment_date\": \"2023-04-11\",\n            \"payment_id\": 14,\n            \"payment_method\": \"Bank Transfer\"\n        },\n        {\n            \"amount_paid\": 29162.17,\n            \"payment_date\": \"2025-02-12\",\n            \"payment_id\": 17,\n            \"payment_method\": \"Cheque\"\n        } \n    ],\n    \"status\": \"success\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Add Payment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ2MjY5OCwianRpIjoiYjdmZjBkMGItMjgyZC00YzQzLTg0Y2ItMDk0MTgyNjQ2ZWFlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NzU0NjI2OTgsImNzcmYiOiIxNjRiZjliNC02YWUyLTQ2Y2YtYmIzNS0wNzY2NTBjMmRjNDciLCJleHAiOjE3NzU0NjM1OTh9.lKpb8ybIsy2E2RLHiliGBgqHEN2kv7nHhW78X_D8xek",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"seller_id\"     : 30,\r\n    \"payment_date\"  :\"2026-01-02\",\r\n    \"amount_paid\"   : 89000,\r\n    \"payment_method\": \"Cash\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/payment/add",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "payment",
+                "add"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error - Forbidden (Access Denied)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 7,\r\n    \"payment_date\"  :\"2026-02-03\",\r\n    \"amount_paid\"   : 67903, \r\n    \"payment_method\":\"Upi\"\r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/add",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "add"
+                  ]
+                }
+              },
+              "status": "FORBIDDEN",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:02:55 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "87"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Access Denied. As seller you can't add payment\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Validation Failed (Missing Field)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 3,\r\n    \"payment_date\"  :\"2026-01-02\",\r\n    \"amount_paid\"   : 89924\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/add",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "add"
+                  ]
+                }
+              },
+              "status": "BAD REQUEST",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:05:19 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "107"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"payment_method is missing or empty. Please provide all the details\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Not Found (Invalid Seller Id)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 30,\r\n    \"payment_date\"  :\"2026-01-02\",\r\n    \"amount_paid\"   : 89000,\r\n    \"payment_method\": \"Cash\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/add",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "add"
+                  ]
+                }
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:12:33 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "57"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Seller not found\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Validation Failed (Invalid Data Type)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     :\"12345\",\r\n    \"payment_date\"  :\"2026-01-02\",\r\n    \"amount_paid\"   :\"it\",\r\n    \"payment_method\":\"Upi\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/add",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "add"
+                  ]
+                }
+              },
+              "status": "BAD REQUEST",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:08:54 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "97"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Please input required fields in correct data type format\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Payment Added",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 3,\r\n    \"payment_date\"  :\"2026-01-02\",\r\n    \"amount_paid\"   : 90900,\r\n    \"payment_method\": \"Upi\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/add",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "add"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:10:09 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "84"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Successfully added payment on seller id 3\",\n    \"status\": \"success\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Payment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ2NDUyMSwianRpIjoiYzZiOWUwZWItZmI1OC00NTBlLWI5N2ItNzQwNjdmYjYzMzMwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NzU0NjQ1MjEsImNzcmYiOiJjMTc1NmIzMC1iNTg3LTQ2ZmEtOTFiZi0wMjFlMzVmZTJkNWQiLCJleHAiOjE3NzU0NjU0MjF9.SB6UCqseEQ0kLlWV6xhAGBt33eeMCOXb-qfePltTJTE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"online_payment_method\":\"Upi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/payment/update/70",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "payment",
+                "update",
+                "70"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error - Forbidden (Access Denied)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 30,\r\n    \"payment_date\"  :\"2026-01-02\",\r\n    \"payment_method\": \"Cash\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/update/7",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "update",
+                    "7"
+                  ]
+                }
+              },
+              "status": "FORBIDDEN",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:20:50 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "90"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Access Denied. As seller you can't update payment\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Not Found (Invalid Payment Id)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 30,\r\n    \"payment_date\"  :\"2026-01-02\",\r\n    \"payment_method\": \"Cash\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/update/1900",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "update",
+                    "1900"
+                  ]
+                }
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:22:13 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "58"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Payment not found\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Validation Failed (Empty Update Payload)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"online_payment_method\": \"Upi\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/update/70",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "update",
+                    "70"
+                  ]
+                }
+              },
+              "status": "BAD REQUEST",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:39:25 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "76"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"No valid fields provided for update\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Not Found (Invalid Seller Id)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 30,\r\n    \"payment_date\"  :\"2026-01-02\",\r\n    \"payment_method\": \"Cash\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/update/200",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "update",
+                    "200"
+                  ]
+                }
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:23:05 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "57"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Seller not found\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Validation Failed (Invalid Data Type)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\" : \"abd\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/update/230",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "update",
+                    "230"
+                  ]
+                }
+              },
+              "status": "BAD REQUEST",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:27:08 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "70"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Wrong data type for seller_id\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Updated Payment Id",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 3,\r\n    \"payment_date\"  :\"2026-01-02\",\r\n    \"payment_method\": \"Cash\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/update/290",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "update",
+                    "290"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:26:18 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "230"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"field_updated\": [\n        {\n            \"seller_id\": 3\n        },\n        {\n            \"payment_date\": \"2026-01-02\"\n        },\n        {\n            \"payment_method\": \"Cash\"\n        }\n    ],\n    \"message\": \"Payment id 290, updated successfully\",\n    \"status\": \"success\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Replace Payment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ2NTIzOSwianRpIjoiODk0OWRjM2ItYWZlMS00MTMzLTlkYzAtNTk4YTRmZGZlOGE4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NzU0NjUyMzksImNzcmYiOiI0YzM2MDY2YS04MDA3LTRlYTEtODZhNi0xMjIyNzkyMTNkN2YiLCJleHAiOjE3NzU0NjYxMzl9.tQnpirFK32uQ-6c0yxeyGhV2J-OsQbzwKCBBMiVpZzw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"seller_id\"     : 14, \r\n    \"payment_date\"  : \"2025-03-04\", \r\n    \"amount_paid\"   : 45904, \r\n    \"payment_method\": \"Cheque\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/payment/replace/56",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "payment",
+                "replace",
+                "56"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error - Forbidden (Access Denied)",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 5, \r\n    \"payment_date\"  : \"2026-01-02\", \r\n    \"amount_paid\"   : 90230, \r\n    \"payment_method\":\"Cash\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/replace/14",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "replace",
+                    "14"
+                  ]
+                }
+              },
+              "status": "FORBIDDEN",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:46:01 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "91"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Access Denied. As seller you can't replace payment\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Not Found (Invalid Payment Id)",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 4, \r\n    \"payment_date\"  : \"2026-01-02\", \r\n    \"amount_paid\"   : 200000, \r\n    \"payment_method\":\"Cash\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/replace/1200",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "replace",
+                    "1200"
+                  ]
+                }
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:49:54 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "67"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Payment id 1200, not found\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Validation Failed (Empty Update Payload)",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 4, \r\n    \"amount_paid\"   : 200000, \r\n    \"payment_method\":\"Cash\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/replace/68",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "replace",
+                    "68"
+                  ]
+                }
+              },
+              "status": "BAD REQUEST",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:50:55 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "105"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"payment_date is missing or empty. Please provide all the details\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Validation Failed (Invalid Data Type)",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 8, \r\n    \"payment_date\"  : \"2025-01-02\", \r\n    \"amount_paid\"   : \"abs\", \r\n    \"payment_method\": \"Cash\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/replace/56",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "replace",
+                    "56"
+                  ]
+                }
+              },
+              "status": "BAD REQUEST",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:53:18 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "97"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Please input required fields in correct data type format\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Not Found (Invalid Seller Id)",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 14, \r\n    \"payment_date\"  : \"2025-03-04\", \r\n    \"amount_paid\"   : 45904, \r\n    \"payment_method\": \"Cheque\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/replace/56",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "replace",
+                    "56"
+                  ]
+                }
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:55:11 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "57"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Seller not found\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Replaced Payment Id",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seller_id\"     : 5, \r\n    \"payment_date\"  : \"2026-01-02\", \r\n    \"amount_paid\"   : 90230, \r\n    \"payment_method\":\"Cash\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payment/replace/14",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "replace",
+                    "14"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 08:47:35 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "269"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Payment 14, replaced successfully\",\n    \"replaced_data\": [\n        {\n            \"seller_id\": 5\n        },\n        {\n            \"payment_date\": \"2026-01-02\"\n        },\n        {\n            \"amount_paid\": 90230\n        },\n        {\n            \"payment_method\": \"Cash\"\n        }\n    ],\n    \"status\": \"success\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "item": [
+        {
+          "name": "Get Seller Outstanding Balance",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ1ODgyMywianRpIjoiODA3ODQ5ZjItYWQ5NC00MTA5LWE0YjgtNDM2MzAzOGFmZGU2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NzU0NTg4MjMsImNzcmYiOiI4ZTE1ZDhkMi1jMDkyLTRhMTQtOWMxNi0zOTQ3NzBiMzk0ZjUiLCJleHAiOjE3NzU0NTk3MjN9.6reebvxcNKXMRQE1qAd8zGJVQ_EPoYFBhvzo0GHpWW8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/analytics/balance/18",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "analytics",
+                "balance",
+                "18"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error -  Forbidden (Access Denied)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/analytics/balance/4",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "balance",
+                    "4"
+                  ]
+                }
+              },
+              "status": "FORBIDDEN",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 06:58:54 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "115"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Access Denied. As seller you can't view other seller's outstanding balance\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Error - Not Found (Seller not Exists)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/analytics/balance/18",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "balance",
+                    "18"
+                  ]
+                }
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 07:03:01 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "57"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Seller not found\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Fetched Outstanding Balance",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/analytics/balance/4",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "balance",
+                    "4"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 07:00:49 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "213"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"result\": {\n        \"outstanding_balance\": \"1436017.35\",\n        \"seller_id\": 4,\n        \"seller_name\": \"Raja Kumar\",\n        \"total_amount_paid\": \"3638752.94\",\n        \"total_purchase\": \"5074770.29\"\n    },\n    \"status\": \"success\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Yearly Purchase Report",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ1OTQ1NCwianRpIjoiMTU2ZDYzOWItZTNiYi00YmY1LThmNjQtOWIyZDExNjEwOTBiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMiLCJuYmYiOjE3NzU0NTk0NTQsImNzcmYiOiIxZWExZGFlZC1kOWFmLTRhNjUtYmIyYi0wMzE1NzJmMWQxOTMiLCJleHAiOjE3NzU0NjAzNTR9.Dd9X2SySQ2O9ZhcS3Ofykv9joYkOx4a-ElM1Ybwglqo",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/analytics/yearly-purchase",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "analytics",
+                "yearly-purchase"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error - Forbidden (Access Denied)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/analytics/yearly-purchase",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "yearly-purchase"
+                  ]
+                }
+              },
+              "status": "FORBIDDEN",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 07:11:12 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "90"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Access Denied. As seller you can't access reports\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Fetched Yearly Report",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/analytics/yearly-purchase",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "yearly-purchase"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 07:07:44 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "4026"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"report\": [\n        {\n            \"apr_25\": \"117481.40\",\n            \"aug_25\": \"171119.75\",\n            \"dec_25\": \"132684.96\",\n            \"feb_25\": \"142230.91\",\n            \"jan_25\": \"134009.28\",\n            \"jul_25\": \"208352.91\",\n            \"jun_25\": \"77319.94\",\n            \"mar_25\": \"298661.01\",\n            \"may_25\": \"265547.28\",\n            \"nov_25\": \"52983.81\",\n            \"oct_25\": \"37174.95\",\n            \"seller_id\": 1,\n            \"seller_name\": \"Raja Kumar\",\n            \"sep_25\": \"186286.51\",\n            \"yearly_total\": \"1823852.71\"\n        },\n        {\n            \"apr_25\": \"153445.38\",\n            \"aug_25\": \"136272.79\",\n            \"dec_25\": \"0\",\n            \"feb_25\": \"94280.14\",\n            \"jan_25\": \"99023.98\",\n            \"jul_25\": \"99495.39\",\n            \"jun_25\": \"194770.97\",\n            \"mar_25\": \"38890.74\",\n            \"may_25\": \"264269.99\",\n            \"nov_25\": \"138474.12\",\n            \"oct_25\": \"157701.23\",\n            \"seller_id\": 3,\n            \"seller_name\": \"Shiv Thakur\",\n            \"sep_25\": \"94610.56\",\n            \"yearly_total\": \"1471235.29\"\n        },\n        {\n            \"apr_25\": \"235932.29\",\n            \"aug_25\": \"33115.25\",\n            \"dec_25\": \"156559.62\",\n            \"feb_25\": \"71429.19\",\n            \"jan_25\": \"107684.89\",\n            \"jul_25\": \"43241.80\",\n            \"jun_25\": \"201490.27\",\n            \"mar_25\": \"113105.36\",\n            \"may_25\": \"42476.40\",\n            \"nov_25\": \"53472.66\",\n            \"oct_25\": \"190272.14\",\n            \"seller_id\": 4,\n            \"seller_name\": \"Karan Mishra\",\n            \"sep_25\": \"44182.32\",\n            \"yearly_total\": \"1292962.19\"\n        }\n    ],\n    \"status\": \"success\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Hierarchical Report",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NTQ1OTY0NSwianRpIjoiMDA2ZWRlNTMtNGFjYi00YjYxLWJhY2EtMjQ5NTAyYzJjZWFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NzU0NTk2NDUsImNzcmYiOiI0YjlmMWE5Yi1iZTMzLTRmNWMtYmU4OS1iYmEwZjZkZmM3MzYiLCJleHAiOjE3NzU0NjA1NDV9.X1k4W_r0lu9xV-q2wa4VcIHY8M6wLJuB8uVMXth8m0k",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/analytics/revenue-hierarchy",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "analytics",
+                "revenue-hierarchy"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error - Forbidden (Access Denied)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/analytics/revenue-hierarchy",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "revenue-hierarchy"
+                  ]
+                }
+              },
+              "status": "FORBIDDEN",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 07:13:10 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "91"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Access Denied. As seller you can't see the reports\",\n    \"status\": \"error\"\n}"
+            },
+            {
+              "name": "Success - Fetched Revenue Hierarchy",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/analytics/revenue-hierarchy",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "analytics",
+                    "revenue-hierarchy"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Werkzeug/3.1.7 Python/3.14.0"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 06 Apr 2026 07:14:25 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "4462"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"hierarchical_report\": [\n        {\n            \"city\": \"Visakhapatnam\",\n            \"grouping_city\": 0,\n            \"grouping_seller_name\": 0,\n            \"grouping_state\": 0,\n            \"seller_name\": \"Ayush Singh\",\n            \"state\": \"Andhra Pradesh\",\n            \"total_revenue\": \"4843553.79\"\n        },\n        {\n            \"city\": \"Visakhapatnam\",\n            \"grouping_city\": 0,\n            \"grouping_seller_name\": 1,\n            \"grouping_state\": 0,\n            \"seller_name\": null,\n            \"state\": \"Andhra Pradesh\",\n            \"total_revenue\": \"9918324.08\"\n        },\n        {\n            \"city\": null,\n            \"grouping_city\": 1,\n            \"grouping_seller_name\": 1,\n            \"grouping_state\": 0,\n            \"seller_name\": null,\n            \"state\": \"Andhra Pradesh\",\n            \"total_revenue\": \"9918324.08\"\n        },\n        {\n            \"city\": null,\n            \"grouping_city\": 1,\n            \"grouping_seller_name\": 1,\n            \"grouping_state\": 1,\n            \"seller_name\": null,\n            \"state\": null,\n            \"total_revenue\": \"44937133.81\"\n        }\n    ],\n    \"status\": \"success\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
