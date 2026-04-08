@@ -369,3 +369,41 @@ def replace_purchase(purchase_id):
                          "status"            : "error",
                          "message"           : "Internal server error"
           }), 500 
+
+@purchase_bp.route('/my-purchase',methods= ['GET'])
+@jwt_required()
+def my_purchase():
+     try:
+          current_identity    = int(get_jwt_identity())
+          current_user        = User.query.get(current_identity)
+
+          if not current_user:
+               return jsonify({
+                    "status"  : "error",
+                    "message" : "User not found"
+               }), 404
+          
+          purchase_list = []
+          if current_user.role == 'Seller':
+               existing_purchase = Purchase.query.filter_by(seller_id= current_user.seller_id).all()
+               for purchase in existing_purchase:
+                    purchase_dict = {
+                                        "purchase_id"       : purchase.purchase_id,
+                                        "purchase_date"     : str(purchase.purchase_date),
+                                        "total_bags"        : purchase.total_bags,
+                                        "waste_pieces"      : purchase.waste_pieces,
+                                        "rate_per_piece"    : float(purchase.rate_per_piece),
+                                        "total_amount"      : round(float(((purchase.total_bags * 30) - purchase.waste_pieces)*purchase.rate_per_piece),2)}
+                    purchase_list.append(purchase_dict)
+
+          return jsonify({
+                         "status"  : "success",
+                         "data"    : purchase_list
+          }), 200
+
+     except Exception as e:
+          print(e)
+          return jsonify({
+                         "status"  : "error",
+                         "message" : "Internal server error"
+          }), 500

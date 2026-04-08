@@ -350,3 +350,40 @@ def replace_payment(payment_id):
                          "status"            : "error",
                          "message"           : "Internal server error"
           }), 500 
+
+@payment_bp.route('/my-payment',methods= ['GET'])
+@jwt_required()
+def my_payment():
+     try:
+          current_identity    = int(get_jwt_identity())
+          current_user        = User.query.get(current_identity)
+
+          if not current_user:
+               return jsonify({
+                    "status"  : "error",
+                    "message" : "User not found"
+               }), 404
+          
+          payment_list = []
+          if current_user.role == 'Seller':
+               existing_payment = Payment.query.filter_by(seller_id= current_user.seller_id).all()
+               for payment in existing_payment:
+                    payment_dict = {
+                                   "payment_id"        : payment.payment_id,
+                                   "payment_date"      : str(payment.payment_date),
+                                   "amount_paid"       : round(float(payment.amount_paid),2),
+                                   "payment_method"    : payment.payment_method}
+                    
+                    payment_list.append(payment_dict)
+                    
+          return jsonify({
+                         "status"  : "success",
+                         "data"    : payment_list
+          }), 200
+
+     except Exception as e:
+          print(e)
+          return jsonify({
+                         "status"  : "error",
+                         "message" : "Internal server error"
+          }), 500
