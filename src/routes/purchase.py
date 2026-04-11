@@ -7,6 +7,50 @@ from src.db import db
 
 purchase_bp = Blueprint('purchase', __name__, url_prefix='/api/purchase')
 
+@purchase_bp.route('/all', methods= ['GET'])
+@jwt_required()
+def all_get_purchase():
+     try:
+          current_identity    = int(get_jwt_identity())
+          current_user        = User.query.get(current_identity)
+
+          if not current_user:
+               return jsonify({
+                              "status"  : "error",
+                              "message" : "User not found"
+               }), 404
+          
+          if current_user.role != 'admin':
+               return jsonify({
+                              "status"  : "error",
+                              "message" : "Access denied. Only Admin can view all purchase records"
+               }), 403
+          
+          all_purchase        = Purchase.query.all()
+          all_purchase_list    = []
+          for purchase in all_purchase:
+               purchase_dict = {
+                              "purchase_id"       : purchase.purchase_id,
+                              "purchase_date"     : str(purchase.purchase_date),
+                              "total_bags"        : purchase.total_bags,
+                              "waste_pieces"      : purchase.waste_pieces,
+                              "rate_per_piece"    : float(purchase.rate_per_piece),
+                              "total_amount"      : round(float(((purchase.total_bags * 30) - purchase.waste_pieces)*purchase.rate_per_piece),2)}
+               
+               all_purchase_list.append(purchase_dict)
+
+          return jsonify({
+                         "status"  : "success",
+                         "data"    : all_purchase_list
+          }), 200
+     
+     except Exception as e:
+          print(e)
+          return jsonify({
+                         "status"  : "error",
+                         "message" : "Internal server error"
+          }), 500
+
 @purchase_bp.route('/data/<int:seller_id>', methods= ['GET'])
 @jwt_required()
 def get_purchase(seller_id):

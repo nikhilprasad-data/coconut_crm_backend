@@ -7,6 +7,49 @@ from src.db import db
 
 payment_bp = Blueprint('payment', __name__, url_prefix='/api/payment')
 
+@payment_bp.route('/all', methods= ['GET'])
+@jwt_required()
+def all_get_payment():
+     try:
+          current_identity    = int(get_jwt_identity())
+          current_user        = User.query.get(current_identity)
+
+          if not current_user:
+               return jsonify({
+                              "status"  : "error",
+                              "message" : "User not found"
+               }), 404
+          
+          if current_user.role != 'admin':
+               return jsonify({
+                              "status"  : "error",
+                              "message" : "Access denied. Only Admin can view all payment records"
+               }), 403
+          
+          all_payment         = Payment.query.all()
+          all_payment_list    = []
+          for payment in all_payment:
+               payment_dict = {
+                              "payment_id"        : payment.payment_id,
+                              "seller_id"         : payment.seller_id,
+                              "payment_date"      : str(payment.payment_date),
+                              "amount_paid"       : round(float(payment.amount_paid),2),
+                              "payment_method"    : payment.payment_method}
+               
+               all_payment_list.append(payment_dict)
+          
+          return jsonify({
+                         "status"  : "success",
+                         "data"    : all_payment_list
+          }), 200
+     
+     except Exception as e:
+          print(e)
+          return jsonify({
+                         "status"  : "error",
+                         "message" : "Internal server error"
+          }), 500
+
 @payment_bp.route('/data/<int:seller_id>',methods=['GET'])
 @jwt_required()
 def get_payment(seller_id):
@@ -48,6 +91,7 @@ def get_payment(seller_id):
 
                payment_dict = {
                               "payment_id"        : payment.payment_id,
+                              "seller_id"         : payment.seller_id,
                               "payment_date"      : str(payment.payment_date),
                               "amount_paid"       : round(float(payment.amount_paid),2),
                               "payment_method"    : payment.payment_method}
