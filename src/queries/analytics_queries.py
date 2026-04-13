@@ -80,12 +80,28 @@ YEARLY_PURCHASE_QUERY    =    '''
 
                               --Joining master.sellers to fetch seller_name for business readability.
 
-                              SELECT 
-                                   s.seller_name,
-                                   ld.*
-                              FROM load_data ld
-                              INNER JOIN master.sellers s
+                                   SELECT 
+							  	s.seller_id,
+                                        s.seller_name,
+								s.is_active,
+                                        COALESCE(ld.jan_25, 0) AS jan_25,
+								COALESCE(ld.feb_25, 0) AS feb_25,
+								COALESCE(ld.mar_25, 0) AS mar_25,
+								COALESCE(ld.apr_25, 0) AS apr_25,
+								COALESCE(ld.may_25, 0) AS may_25,
+								COALESCE(ld.jun_25, 0) AS jun_25,
+								COALESCE(ld.jul_25, 0) AS jul_25,
+								COALESCE(ld.aug_25, 0) AS aug_25,
+								COALESCE(ld.sep_25, 0) AS sep_25,
+								COALESCE(ld.oct_25, 0) AS oct_25,
+								COALESCE(ld.nov_25, 0) AS nov_25,
+								COALESCE(ld.dec_25, 0) AS dec_25,
+								COALESCE(ld.yearly_total, 0) AS yearly_total				   
+                                   FROM master.sellers s
+                                   LEFT JOIN load_data ld
                                    ON ld.seller_id = s.seller_id
+							  ORDER BY
+							  		s.seller_id;
                               '''
 HIERARCHICAL_REVENUE_QUERY =  '''
                               WITH extract_data AS
