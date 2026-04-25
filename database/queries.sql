@@ -180,3 +180,46 @@ LEFT JOIN extract_data_purchase pur
 LEFT JOIN extract_data_payment pay
      ON pay.seller_id = s.seller_id
 ORDER BY s.seller_id;
+
+
+-- MODULE 4: REGIONAL SELLER LEADERBOARD
+
+-- Feature : State-wise Top 2 Sellers Report
+-- Description : Aggregates total revenue per seller and uses window functions to rank them within each state, retrieving the top 2 performers.
+
+-- Making clean CTEs (extract_purchase_data, transform_data) to optimize performance, maintainability, readability.
+
+WITH extract_purchase_data AS
+(
+-- Calculating net revenue: (((total_bags * 30) - waste_pieces) * rate_per_piece)
+	SELECT
+		seller_id,
+		SUM(((total_bags * 30) - waste_pieces) * rate_per_piece) AS total_revenue
+	FROM finance.purchases
+-- GROUP BY seller_id to capture all purchase transactions accurately.
+	GROUP BY seller_id
+),
+	transform_data AS
+(
+-- Joining location and seller details, applying DENSE_RANK partitioned by state
+	SELECT 
+		l.state,
+		s.seller_name,
+		p.total_revenue,
+		DENSE_RANK() OVER w AS state_rank
+	FROM master.locations l
+	INNER JOIN master.sellers s
+		ON l.address_id = s.address_id
+	INNER JOIN extract_purchase_data P
+		ON p.seller_id = s.seller_id
+	WINDOW w AS (
+		PARTITION BY l.state
+		ORDER BY p.total_revenue DESC
+	)
+)
+-- Fetching the final output filtering only Rank 1 and Rank 2 sellers
+SELECT
+	*
+FROM transform_data
+WHERE
+	state_rank <= 2;
