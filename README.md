@@ -37,33 +37,32 @@ The database follows a normalized relational structure:
 Follow these steps to run the backend environment locally on your machine:
 
 **1. Clone the repository**
-> ```bash
-> git clone [https://github.com/nikhilprasad-data/coconut_crm_backend.git](https://github.com/nikhilprasad-data/coconut_crm_backend.git)
-> cd coconut_crm_backend
-> ```
+```bash
+git clone https://github.com/nikhilprasad-data/coconut_crm_backend.git
+cd coconut_crm_backend
+```
 
 **2. Create and activate a virtual environment**
-> ```bash
-> # Windows
-> python -m venv venv
-> venv\Scripts\activate
-> 
-> # Mac/Linux
-> python3 -m venv venv
-> source venv/bin/activate
-> ```
+```bash
+# Windows
+python -m venv venv
+venv\Scripts\activate
+# Mac/Linux
+python3 -m venv venv
+source venv/bin/activate
+```
 
 **3. Install dependencies**
-> ```bash
-> pip install -r requirements.txt
-> ```
+```bash
+pip install -r requirements.txt
+```
 
 **4. Environment Variables setup**
 Create a `.env` file in the root directory and add your credentials:
-> ```env
-> DATABASE_URL=postgresql://user:password@localhost:5432/coconut_crm
-> JWT_SECRET_KEY=your_super_secret_key
-> ```
+```env
+DATABASE_URL=postgresql://user:password@localhost:5432/coconut_crm
+JWT_SECRET_KEY=your_super_secret_key
+```
 
 **5. Database Initialization (Strict Order)**
 Execute the SQL scripts in your PostgreSQL instance in this specific order:
@@ -73,9 +72,9 @@ Execute the SQL scripts in your PostgreSQL instance in this specific order:
 
 **6. Start the Application**
 `run.py` is the entry point of our backend architecture.
-> ```bash
-> python run.py
-> ```
+```bash
+python run.py
+```
 
 ## 📡 API Endpoints (Quick Reference)
 
