@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS master.sellers
 		seller_name 	VARCHAR(100)	NOT NULL,
 		contact_number	VARCHAR(20)	NOT NULL,
 		address_id	INT 			REFERENCES master.locations(address_id),
-		CONSTRAINT seller_id_pk PRIMARY KEY (seller_id)
+		is_active		BOOLEAN 		DEFAULT true
+		CONSTRAINT seller_id_pk 	PRIMARY KEY (seller_id),
 	);
 
 CREATE TABLE IF NOT EXISTS finance.purchases
