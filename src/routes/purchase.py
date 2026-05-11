@@ -31,6 +31,7 @@ def all_get_purchase():
           for purchase in all_purchase:
                purchase_dict = {
                               "purchase_id"       : purchase.purchase_id,
+                              "seller_id"         : purchase.seller_id,
                               "purchase_date"     : str(purchase.purchase_date),
                               "total_bags"        : purchase.total_bags,
                               "waste_pieces"      : purchase.waste_pieces,
@@ -90,6 +91,7 @@ def get_purchase(seller_id):
           for purchase in all_purchase:
                purchase_dict = {
                                    "purchase_id"       : purchase.purchase_id,
+                                   "seller_id"         : purchase.seller_id,
                                    "purchase_date"     : str(purchase.purchase_date),
                                    "total_bags"        : purchase.total_bags,
                                    "waste_pieces"      : purchase.waste_pieces,
